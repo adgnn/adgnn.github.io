@@ -18,7 +18,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/05/03/ENbLVK.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/05/03/ENbOUO.png">
-<meta property="og:updated_time" content="2019-05-03T04:43:26.383Z">
+<meta property="og:updated_time" content="2019-05-03T10:05:11.234Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机组成原理-寄存器堆设计实验">
 <meta name="twitter:description" content="实验目的： 学习使用Verilog HDL语言进行时序电路的设计方法  掌握灵活运用Verilog HDL语言进行各种描述与建模的技巧和方法  学习寄存器堆的数据传送与读写工作原理，掌握寄存器堆的设计方法。   实验要求： 设计一个32*32位的寄存器堆（即含有32个寄存器，每个寄存器32位）  读访问操作：无需时钟同步，只要给出寄存器地址，即可读出寄存器中的数据。  写访问操作：需要时钟同步，所">
@@ -85,10 +85,6 @@ var _hmt = _hmt || [];
     		
     			
     			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
-    			
-            
-    			
-    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友情链接</a>
     			
             
     			
@@ -288,6 +284,19 @@ var _hmt = _hmt || [];
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#实验目的："><span class="toc-number">1.</span> <span class="toc-text">实验目的：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实验要求："><span class="toc-number">2.</span> <span class="toc-text">实验要求：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#寄存器模块："><span class="toc-number">3.</span> <span class="toc-text">寄存器模块：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#顶层验证模块："><span class="toc-number">4.</span> <span class="toc-text">顶层验证模块：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#仿真文件："><span class="toc-number">5.</span> <span class="toc-text">仿真文件：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实验收获："><span class="toc-number">6.</span> <span class="toc-text">实验收获：</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
@@ -295,17 +304,6 @@ var _hmt = _hmt || [];
 
   
   
-  
-  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-<script>
-  var cloudTieConfig = {
-    url: "https://adgnn.github.io/2019/05/03/2019-5-3-计算机组成原理-寄存器堆设计实验/", 
-    sourceId: "2019-5-3-计算机组成原理-寄存器堆设计实验",
-    productKey: "true",
-    target: "cloud-tie-wrapper"
-  };
-</script>
-<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
   
@@ -343,7 +341,7 @@ var _hmt = _hmt || [];
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,
-		showTags: false
+		showTags: true
 	}
 </script>
 
@@ -387,25 +385,17 @@ MathJax.Hub.Queue(function() {
       
       
     
-      
-      
-      
-    
     
 
     <ul style="width: 70%">
     
     
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
+      <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
       
         
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">友情链接</a></li>
-      
-        
-      
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
+      <li style="width: 50%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
       
         
     </ul>
@@ -484,10 +474,6 @@ MathJax.Hub.Queue(function() {
     	</section>
     
 
-    
-    	<section class="tools-section tools-section-friends" q-show="friends">
-  		
-    	</section>
     
 
     
