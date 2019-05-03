@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://adgnn.github.io">
-  <title>adgnn&#39;s Blog</title>
+  <title>计算机组成原理-多功能ALU设计 | adgnn&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="adgnn不定期不定内容更新">
-<meta property="og:type" content="website">
-<meta property="og:title" content="adgnn&#39;s Blog">
-<meta property="og:url" content="https://adgnn.github.io/index.html">
+  <meta name="description" content="实验目的： 学习多功能ALU的工作原理，掌握运算器的设计方法。  掌握运用Verilog HDL语言进行行为描述与建模的技巧和方法。   实验要求： 设计一个具有8种运算功能的32位ALU，并能够产生运算结果的标志：结果为零标志ZF，溢出标志OF。  编写顶层模块，用于验证模块的正确性。   ALU模块：12345678910111213141516171819202122232425262728">
+<meta name="keywords" content="计算机组成原理,verilog,vivado,FPGA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机组成原理-多功能ALU设计">
+<meta property="og:url" content="https://adgnn.github.io/2019/05/03/2019-5-3-计算机组成原理-多功能ALU设计/index.html">
 <meta property="og:site_name" content="adgnn&#39;s Blog">
-<meta property="og:description" content="adgnn不定期不定内容更新">
+<meta property="og:description" content="实验目的： 学习多功能ALU的工作原理，掌握运算器的设计方法。  掌握运用Verilog HDL语言进行行为描述与建模的技巧和方法。   实验要求： 设计一个具有8种运算功能的32位ALU，并能够产生运算结果的标志：结果为零标志ZF，溢出标志OF。  编写顶层模块，用于验证模块的正确性。   ALU模块：12345678910111213141516171819202122232425262728">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/05/03/ENbnHK.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/05/03/ENb19H.png">
+<meta property="og:updated_time" content="2019-05-03T05:12:03.272Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adgnn&#39;s Blog">
-<meta name="twitter:description" content="adgnn不定期不定内容更新">
+<meta name="twitter:title" content="计算机组成原理-多功能ALU设计">
+<meta name="twitter:description" content="实验目的： 学习多功能ALU的工作原理，掌握运算器的设计方法。  掌握运用Verilog HDL语言进行行为描述与建模的技巧和方法。   实验要求： 设计一个具有8种运算功能的32位ALU，并能够产生运算结果的标志：结果为零标志ZF，溢出标志OF。  编写顶层模块，用于验证模块的正确性。   ALU模块：12345678910111213141516171819202122232425262728">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/05/03/ENbnHK.png">
   
     <link rel="alternative" href="/atom.xml" title="adgnn&#39;s Blog" type="application/atom+xml">
   
@@ -165,217 +170,14 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-2019-5-3-计算机组成原理-存储器设计实验" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-2019-5-3-计算机组成原理-多功能ALU设计" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/03/2019-5-3-计算机组成原理-存储器设计实验/">计算机组成原理-存储器设计实验</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/03/2019-5-3-计算机组成原理-存储器设计实验/" class="archive-article-date">
-  	<time datetime="2019-05-03T09:49:01.998Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="实验目的："><a href="#实验目的：" class="headerlink" title="实验目的："></a>实验目的：</h4><p>掌握灵活运用Verilog HDL语言进行各种描述与建模的技巧和方法；学习在Vivado中使用Memory IP核生成存储器的方法；学习存储器的结构及读写原理，掌握存储器的设计方法。</p>
-<h4 id="实验要求："><a href="#实验要求：" class="headerlink" title="实验要求："></a>实验要求：</h4><p>实验vivado内置的IP核生成一个存储器，并写一个顶层模块验证。</p>
-<h4 id="验证模块："><a href="#验证模块：" class="headerlink" title="验证模块："></a>验证模块：</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> ram(out,Write_Addr_swb,sw,Clk_swb,Write_swb);</span><br><span class="line"></span><br><span class="line"><span class="keyword">input</span> [<span class="number">32</span>:<span class="number">1</span>]sw;</span><br><span class="line"><span class="keyword">input</span> Write_Addr_swb; <span class="comment">//写地址按钮</span></span><br><span class="line"><span class="keyword">input</span> Clk_swb=<span class="number">0</span>;      <span class="comment">//时钟引脚</span></span><br><span class="line"><span class="keyword">input</span> Write_swb=<span class="number">0</span>;    <span class="comment">//写信号引脚</span></span><br><span class="line"><span class="keyword">output</span> <span class="keyword">reg</span>[<span class="number">32</span>:<span class="number">1</span>] out;</span><br><span class="line"></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">6</span>:<span class="number">1</span>] Mem_Addr; <span class="comment">//6个逻辑开关 当按钮1按下，32位开关中6位是读写存储器的地址</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">32</span>:<span class="number">1</span>] W_Data; <span class="comment">//32个逻辑开关 写操作时，当按钮2按下时，32位开关值是写入数据</span></span><br><span class="line"><span class="keyword">wire</span> [<span class="number">32</span>:<span class="number">1</span>] R_Data;</span><br><span class="line"><span class="keyword">reg</span> Mem_Write; <span class="comment">//1个按钮 =1为写操作 =0为读操作</span></span><br><span class="line"><span class="keyword">reg</span> clka; <span class="comment">//时钟</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">RAM_B Data_RAM (</span><br><span class="line">  <span class="variable">.clka</span>(clka),    <span class="comment">// input wire clka</span></span><br><span class="line">  <span class="variable">.wea</span>(Mem_Write),      <span class="comment">// input wire [0 : 0] wea</span></span><br><span class="line">  <span class="variable">.addra</span>(Mem_Addr[<span class="number">6</span>:<span class="number">1</span>]),  <span class="comment">// input wire [5 : 0] addra</span></span><br><span class="line">  <span class="variable">.dina</span>(W_Data),    <span class="comment">// input wire [31 : 0] dina</span></span><br><span class="line">  <span class="variable">.douta</span>(R_Data)  <span class="comment">// output wire [31 : 0] douta</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">always</span> @(*)</span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">    clka&lt;=Clk_swb;         <span class="comment">//时钟</span></span><br><span class="line">    Mem_Write&lt;=Write_swb;  <span class="comment">//写地址信号</span></span><br><span class="line">    <span class="keyword">if</span>(Write_Addr_swb)     <span class="comment">//写地址地址</span></span><br><span class="line">        Mem_Addr&lt;=sw[<span class="number">6</span>:<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span>(!Mem_Write &amp; clka)  <span class="comment">//读存储器</span></span><br><span class="line">        out&lt;=R_Data;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(Mem_Write &amp; clka)   <span class="comment">//写存储器</span></span><br><span class="line">        W_Data&lt;=sw;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
-<h4 id="仿真文件："><a href="#仿真文件：" class="headerlink" title="仿真文件："></a>仿真文件：</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> ram(out,Write_Addr_swb,sw,Clk_swb,Write_swb);</span><br><span class="line"></span><br><span class="line"><span class="keyword">input</span> [<span class="number">32</span>:<span class="number">1</span>]sw;</span><br><span class="line"><span class="keyword">input</span> Write_Addr_swb; <span class="comment">//写地址按钮</span></span><br><span class="line"><span class="keyword">input</span> Clk_swb=<span class="number">0</span>;      <span class="comment">//时钟引脚</span></span><br><span class="line"><span class="keyword">input</span> Write_swb=<span class="number">0</span>;    <span class="comment">//写信号引脚</span></span><br><span class="line"><span class="keyword">output</span> <span class="keyword">reg</span>[<span class="number">32</span>:<span class="number">1</span>] out;</span><br><span class="line"></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">6</span>:<span class="number">1</span>] Mem_Addr; <span class="comment">//6个逻辑开关 当按钮1按下，32位开关中6位是读写存储器的地址</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">32</span>:<span class="number">1</span>] W_Data; <span class="comment">//32个逻辑开关 写操作时，当按钮2按下时，32位开关值是写入数据</span></span><br><span class="line"><span class="keyword">wire</span> [<span class="number">32</span>:<span class="number">1</span>] R_Data;</span><br><span class="line"><span class="keyword">reg</span> Mem_Write; <span class="comment">//1个按钮 =1为写操作 =0为读操作</span></span><br><span class="line"><span class="keyword">reg</span> clka; <span class="comment">//时钟</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">RAM_B Data_RAM (</span><br><span class="line">  <span class="variable">.clka</span>(clka),    <span class="comment">// input wire clka</span></span><br><span class="line">  <span class="variable">.wea</span>(Mem_Write),      <span class="comment">// input wire [0 : 0] wea</span></span><br><span class="line">  <span class="variable">.addra</span>(Mem_Addr[<span class="number">6</span>:<span class="number">1</span>]),  <span class="comment">// input wire [5 : 0] addra</span></span><br><span class="line">  <span class="variable">.dina</span>(W_Data),    <span class="comment">// input wire [31 : 0] dina</span></span><br><span class="line">  <span class="variable">.douta</span>(R_Data)  <span class="comment">// output wire [31 : 0] douta</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">always</span> @(*)</span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">    clka&lt;=Clk_swb;         <span class="comment">//时钟</span></span><br><span class="line">    Mem_Write&lt;=Write_swb;  <span class="comment">//写地址信号</span></span><br><span class="line">    <span class="keyword">if</span>(Write_Addr_swb)     <span class="comment">//写地址地址</span></span><br><span class="line">        Mem_Addr&lt;=sw[<span class="number">6</span>:<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span>(!Mem_Write &amp; clka)  <span class="comment">//读存储器</span></span><br><span class="line">        out&lt;=R_Data;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(Mem_Write &amp; clka)   <span class="comment">//写存储器</span></span><br><span class="line">        W_Data&lt;=sw;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://s2.ax1x.com/2019/05/03/ENq0Z6.png" alt="写操作"></p>
-<p><img src="https://s2.ax1x.com/2019/05/03/ENqBdK.png" alt="读操作"></p>
-<p><img src="https://s2.ax1x.com/2019/05/03/ENqvwV.png" alt="电路图"></p>
-<h4 id="实验收获："><a href="#实验收获：" class="headerlink" title="实验收获："></a>实验收获：</h4><p>Vivado中IP核的生成和调用方法。更熟练地掌握了仿真调试的方法。在仿真中，使用for语句对16个存储器地址写入，然后读出，很好地验证了预期结果</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机组成原理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">verilog</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">vivado</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">FPGA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/03/2019-5-3-计算机组成原理-存储器设计实验/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019-5-3-计算机组成原理-寄存器堆设计实验" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/03/2019-5-3-计算机组成原理-寄存器堆设计实验/">计算机组成原理-寄存器堆设计实验</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/03/2019-5-3-计算机组成原理-寄存器堆设计实验/" class="archive-article-date">
-  	<time datetime="2019-05-03T09:49:01.996Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="实验目的："><a href="#实验目的：" class="headerlink" title="实验目的："></a>实验目的：</h4><ul>
-<li><p>学习使用Verilog HDL语言进行时序电路的设计方法</p>
-</li>
-<li><p>掌握灵活运用Verilog HDL语言进行各种描述与建模的技巧和方法</p>
-</li>
-<li><p>学习寄存器堆的数据传送与读写工作原理，掌握寄存器堆的设计方法。</p>
-</li>
-</ul>
-<h4 id="实验要求："><a href="#实验要求：" class="headerlink" title="实验要求："></a>实验要求：</h4><ul>
-<li><p>设计一个32*32位的寄存器堆（即含有32个寄存器，每个寄存器32位）</p>
-</li>
-<li><p>读访问操作：无需时钟同步，只要给出寄存器地址，即可读出寄存器中的数据。</p>
-</li>
-<li><p>写访问操作：需要时钟同步，所有写入操作的输入信号必须在时钟边沿来临时，已经有效（Write_Reg=1、地址和数据）。</p>
-</li>
-</ul>
-<h4 id="寄存器模块："><a href="#寄存器模块：" class="headerlink" title="寄存器模块："></a>寄存器模块：</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> RegFile(Clk,Clr,Write_Reg,R_Addr_A,</span><br><span class="line">                R_Addr_B,W_Addr,W_Data,R_Data_A,R_Data_B);</span><br><span class="line">    <span class="keyword">input</span> Clk;  <span class="comment">//时钟信号</span></span><br><span class="line">    <span class="keyword">input</span> Clr;  <span class="comment">//清零信号</span></span><br><span class="line">    <span class="keyword">input</span> Write_Reg; <span class="comment">//写控制信号</span></span><br><span class="line">    <span class="keyword">input</span> [<span class="number">5</span>:<span class="number">1</span>]R_Addr_A; <span class="comment">//A端口读寄存器地址</span></span><br><span class="line">    <span class="keyword">input</span> [<span class="number">5</span>:<span class="number">1</span>]R_Addr_B; <span class="comment">//B端口读寄存器地址</span></span><br><span class="line">    <span class="keyword">input</span> [<span class="number">5</span>:<span class="number">1</span>]W_Addr;   <span class="comment">//写寄存器地址</span></span><br><span class="line">    <span class="keyword">input</span> [<span class="number">32</span>:<span class="number">1</span>]W_Data;  <span class="comment">//写入数据</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">output</span> [<span class="number">32</span>:<span class="number">1</span>]R_Data_A; <span class="comment">//A端口读出数据</span></span><br><span class="line">    <span class="keyword">output</span> [<span class="number">32</span>:<span class="number">1</span>]R_Data_B; <span class="comment">//B端口读出数据</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">32</span>:<span class="number">1</span>]Reg_Files[<span class="number">31</span>:<span class="number">0</span>]; <span class="comment">//寄存器堆</span></span><br><span class="line">    <span class="keyword">integer</span> i; <span class="comment">//遍历</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">initial</span></span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=<span class="number">32</span>;i=i+<span class="number">1</span>) Reg_Files[i]&lt;=<span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">always</span>@(<span class="keyword">posedge</span> Clk <span class="keyword">or</span> <span class="keyword">posedge</span> Clr)</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">if</span>(Clr)<span class="comment">//检测清零</span></span><br><span class="line">            <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=<span class="number">32</span>;i=i+<span class="number">1</span>) Reg_Files[i]&lt;=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//检测写控制，高电平则写入寄存器</span></span><br><span class="line">            <span class="keyword">if</span>(Write_Reg) Reg_Files[W_Addr]&lt;=W_Data;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">assign</span> R_Data_A=Reg_Files[R_Addr_A];</span><br><span class="line">    <span class="keyword">assign</span> R_Data_B=Reg_Files[R_Addr_B];</span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
-<h4 id="顶层验证模块："><a href="#顶层验证模块：" class="headerlink" title="顶层验证模块："></a>顶层验证模块：</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> registers(sw,button,out);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">input</span> [<span class="number">32</span>:<span class="number">1</span>] sw;</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">6</span>:<span class="number">1</span>] button;</span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span>[<span class="number">32</span>:<span class="number">1</span>] out=<span class="number">32'hzzzz_zzzz</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">reg</span> Clk=<span class="number">1'b0</span>;</span><br><span class="line">    <span class="keyword">reg</span> Clr=<span class="number">1'b0</span>;</span><br><span class="line">    <span class="keyword">reg</span> Write_Reg=<span class="number">1'b0</span>;</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">5</span>:<span class="number">1</span>] R_Addr_A=<span class="number">5'bz</span>;</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">5</span>:<span class="number">1</span>] R_Addr_B=<span class="number">5'bz</span>;</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">5</span>:<span class="number">1</span>] W_Addr=<span class="number">5'bz</span>;</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">32</span>:<span class="number">1</span>] W_Data=<span class="number">32'bz</span>;</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">32</span>:<span class="number">1</span>] Reg_Files[<span class="number">31</span>:<span class="number">0</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">wire</span> [<span class="number">32</span>:<span class="number">1</span>] R_Data_A;</span><br><span class="line">    <span class="keyword">wire</span> [<span class="number">32</span>:<span class="number">1</span>] R_Data_B;</span><br><span class="line">    </span><br><span class="line">    RegFile RF(</span><br><span class="line">        <span class="variable">.Clk</span>(Clk),</span><br><span class="line">        <span class="variable">.Clr</span>(Clr),</span><br><span class="line">        <span class="variable">.Write_Reg</span>(Write_Reg),</span><br><span class="line">        <span class="variable">.R_Addr_A</span>(sw[<span class="number">32</span>:<span class="number">28</span>]),</span><br><span class="line">        <span class="variable">.R_Addr_B</span>(sw[<span class="number">27</span>:<span class="number">23</span>]),</span><br><span class="line">        <span class="variable">.W_Addr</span>(W_Addr),</span><br><span class="line">        <span class="variable">.W_Data</span>(W_Data),</span><br><span class="line">        <span class="variable">.R_Data_A</span>(R_Data_A),</span><br><span class="line">        <span class="variable">.R_Data_B</span>(R_Data_B));</span><br><span class="line">        </span><br><span class="line">     <span class="keyword">always</span> @(*)</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">case</span>(button)</span><br><span class="line">            <span class="number">6'b100000</span>: <span class="keyword">begin</span> W_Addr&lt;=sw[<span class="number">5</span>:<span class="number">1</span>]; <span class="keyword">end</span> <span class="comment">//输入低5位为寄存器地址</span></span><br><span class="line">            <span class="number">6'b010000</span>: <span class="keyword">begin</span> W_Data&lt;=sw; <span class="keyword">end</span>      <span class="comment">//输入寄存器内容</span></span><br><span class="line">            <span class="number">6'b001000</span>: <span class="keyword">begin</span> Write_Reg&lt;=sw[<span class="number">1</span>]; <span class="keyword">end</span><span class="comment">//提供Write_Reg信号，=1写操作</span></span><br><span class="line">            <span class="number">6'b000100</span>: <span class="keyword">begin</span> Clr&lt;=button[<span class="number">3</span>]; <span class="keyword">end</span>      <span class="comment">//提供Reset</span></span><br><span class="line">            <span class="number">6'b000010</span>: <span class="keyword">begin</span> </span><br><span class="line">                       <span class="keyword">if</span>(sw[<span class="number">1</span>])</span><br><span class="line">                           out&lt;=R_Data_A;</span><br><span class="line">                       <span class="keyword">else</span></span><br><span class="line">                           out&lt;=R_Data_B;</span><br><span class="line">                       <span class="keyword">end</span>  <span class="comment">//读A/B端口选择</span></span><br><span class="line">            <span class="number">6'b000000</span>: <span class="keyword">begin</span> out&lt;=<span class="number">32'bz</span>; Clr&lt;=<span class="number">0</span>; Clk&lt;=<span class="number">0</span>; <span class="keyword">end</span></span><br><span class="line">            <span class="number">6'b000001</span>: <span class="keyword">begin</span> Clk&lt;=button[<span class="number">1</span>]; <span class="keyword">end</span>     <span class="comment">//提供Clk信号</span></span><br><span class="line">            <span class="keyword">default</span>: <span class="keyword">begin</span> out&lt;=<span class="number">32'bz</span>; Clr&lt;=<span class="number">0</span>; Clk&lt;=<span class="number">0</span>; <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">endcase</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
-<h4 id="仿真文件："><a href="#仿真文件：" class="headerlink" title="仿真文件："></a>仿真文件：</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> registers(sw,button,out);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">input</span> [<span class="number">32</span>:<span class="number">1</span>] sw;</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">6</span>:<span class="number">1</span>] button;</span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span>[<span class="number">32</span>:<span class="number">1</span>] out=<span class="number">32'hzzzz_zzzz</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">reg</span> Clk=<span class="number">1'b0</span>;</span><br><span class="line">    <span class="keyword">reg</span> Clr=<span class="number">1'b0</span>;</span><br><span class="line">    <span class="keyword">reg</span> Write_Reg=<span class="number">1'b0</span>;</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">5</span>:<span class="number">1</span>] R_Addr_A=<span class="number">5'bz</span>;</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">5</span>:<span class="number">1</span>] R_Addr_B=<span class="number">5'bz</span>;</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">5</span>:<span class="number">1</span>] W_Addr=<span class="number">5'bz</span>;</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">32</span>:<span class="number">1</span>] W_Data=<span class="number">32'bz</span>;</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">32</span>:<span class="number">1</span>] Reg_Files[<span class="number">31</span>:<span class="number">0</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">wire</span> [<span class="number">32</span>:<span class="number">1</span>] R_Data_A;</span><br><span class="line">    <span class="keyword">wire</span> [<span class="number">32</span>:<span class="number">1</span>] R_Data_B;</span><br><span class="line">    </span><br><span class="line">    RegFile RF(</span><br><span class="line">        <span class="variable">.Clk</span>(Clk),</span><br><span class="line">        <span class="variable">.Clr</span>(Clr),</span><br><span class="line">        <span class="variable">.Write_Reg</span>(Write_Reg),</span><br><span class="line">        <span class="variable">.R_Addr_A</span>(sw[<span class="number">32</span>:<span class="number">28</span>]),</span><br><span class="line">        <span class="variable">.R_Addr_B</span>(sw[<span class="number">27</span>:<span class="number">23</span>]),</span><br><span class="line">        <span class="variable">.W_Addr</span>(W_Addr),</span><br><span class="line">        <span class="variable">.W_Data</span>(W_Data),</span><br><span class="line">        <span class="variable">.R_Data_A</span>(R_Data_A),</span><br><span class="line">        <span class="variable">.R_Data_B</span>(R_Data_B));</span><br><span class="line">        </span><br><span class="line">     <span class="keyword">always</span> @(*)</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">case</span>(button)</span><br><span class="line">            <span class="number">6'b100000</span>: <span class="keyword">begin</span> W_Addr&lt;=sw[<span class="number">5</span>:<span class="number">1</span>]; <span class="keyword">end</span> <span class="comment">//输入低5位为寄存器地址</span></span><br><span class="line">            <span class="number">6'b010000</span>: <span class="keyword">begin</span> W_Data&lt;=sw; <span class="keyword">end</span>      <span class="comment">//输入寄存器内容</span></span><br><span class="line">            <span class="number">6'b001000</span>: <span class="keyword">begin</span> Write_Reg&lt;=sw[<span class="number">1</span>]; <span class="keyword">end</span><span class="comment">//提供Write_Reg信号，=1写操作</span></span><br><span class="line">            <span class="number">6'b000100</span>: <span class="keyword">begin</span> Clr&lt;=button[<span class="number">3</span>]; <span class="keyword">end</span>      <span class="comment">//提供Reset</span></span><br><span class="line">            <span class="number">6'b000010</span>: <span class="keyword">begin</span> </span><br><span class="line">                       <span class="keyword">if</span>(sw[<span class="number">1</span>])</span><br><span class="line">                           out&lt;=R_Data_A;</span><br><span class="line">                       <span class="keyword">else</span></span><br><span class="line">                           out&lt;=R_Data_B;</span><br><span class="line">                       <span class="keyword">end</span>  <span class="comment">//读A/B端口选择</span></span><br><span class="line">            <span class="number">6'b000000</span>: <span class="keyword">begin</span> out&lt;=<span class="number">32'bz</span>; Clr&lt;=<span class="number">0</span>; Clk&lt;=<span class="number">0</span>; <span class="keyword">end</span></span><br><span class="line">            <span class="number">6'b000001</span>: <span class="keyword">begin</span> Clk&lt;=button[<span class="number">1</span>]; <span class="keyword">end</span>     <span class="comment">//提供Clk信号</span></span><br><span class="line">            <span class="keyword">default</span>: <span class="keyword">begin</span> out&lt;=<span class="number">32'bz</span>; Clr&lt;=<span class="number">0</span>; Clk&lt;=<span class="number">0</span>; <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">endcase</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://s2.ax1x.com/2019/05/03/ENbLVK.png" alt="波形图"></p>
-<p><img src="https://s2.ax1x.com/2019/05/03/ENbOUO.png" alt="电路图"></p>
-<h4 id="实验收获："><a href="#实验收获：" class="headerlink" title="实验收获："></a>实验收获：</h4><p>寄存器堆设计和之前的ALU设计有一定的相似之处，如都是顶层+本体的设计方法，顶层控制着外部的输入输出，并将值传递到本体模块进行具体计算。</p>
-<p>具体代码实现过程中，利用always语句块和assign语句来区分时序和非时序逻辑电路（写和读）。仿真过程遇到了点问题，最后一步本意为输出B读端口（ffff_ffff），结果输出为0，但上板后没有问题。 </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机组成原理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">verilog</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">vivado</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">FPGA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/03/2019-5-3-计算机组成原理-寄存器堆设计实验/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019-5-3-计算机组成原理-多功能ALU设计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/03/2019-5-3-计算机组成原理-多功能ALU设计/">计算机组成原理-多功能ALU设计</a>
+    <h1 class="article-title" itemprop="name">
+      计算机组成原理-多功能ALU设计
     </h1>
   
 
@@ -441,16 +243,28 @@ var _hmt = _hmt || [];
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/03/2019-5-3-计算机组成原理-多功能ALU设计/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/05/03/2019-5-3-计算机组成原理-寄存器堆设计实验/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          计算机组成原理-寄存器堆设计实验
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -470,8 +284,30 @@ var _hmt = _hmt || [];
 
 
 
+  
+  
+  
 
   
+
+  
+    <section id="comments">
+      <div id="disqus_thread"></div>
+        <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'downager'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </section>
+  
+
   
 
 
@@ -494,8 +330,8 @@ var _hmt = _hmt || [];
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
