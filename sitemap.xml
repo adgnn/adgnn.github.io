@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://adgnn.github.io/2019/05/03/%E4%BD%A0%E5%A5%BD/</loc>
+    
+    <lastmod>2019-05-03T09:39:46.093Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://adgnn.github.io/about/index.html</loc>
     
     <lastmod>2019-05-03T08:38:08.147Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>https://adgnn.github.io/tags/index.html</loc>
     
     <lastmod>2019-05-03T08:30:35.915Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://adgnn.github.io/2019/05/03/hello-world/</loc>
-    
-    <lastmod>2019-05-03T08:17:43.216Z</lastmod>
     
   </url>
   
