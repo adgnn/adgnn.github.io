@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/06/25/ZZrKQH.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/06/25/ZZrmWD.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/06/25/ZZruSe.png">
-<meta property="og:updated_time" content="2019-06-25T14:51:39.550Z">
+<meta property="og:updated_time" content="2019-06-25T14:59:51.540Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创新实践总结">
 <meta name="twitter:description" content="1. 前言本学期创新实践课，小组的课题是聚类。本期末总结主要以学习笔记的形式进行表述。 “聚类”是无监督学习中研究最多的一种无监督学习方法。由于现实世界中未标记的数据样本往往比经过人为标记后的样本要多，因此无监督学习在机器学习中占有很重要的地位。聚类不存在客观标准，我们要以某个角度去找到给出的无标记数据样本之间的相似性，并让机器学习到它并得到分类结果。由于聚类不存在客观标准，所以“聚类”是机器学习">
@@ -195,7 +195,7 @@ var _hmt = _hmt || [];
 
         
         <a href="/2019/06/25/2019-6-25-创新实践总结/" class="archive-article-date">
-  	<time datetime="2019-06-25T14:51:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-25</time>
+  	<time datetime="2019-06-25T14:59:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-25</time>
 </a>
         
       </header>
@@ -282,11 +282,15 @@ var _hmt = _hmt || [];
 <p>这种学的图学习模型最小化L1-norm of spectral embedding。</p>
 <p>使用L1-norm得出的结果具有稀疏性，因而得到的聚类结果具有更清晰的结构。</p>
 <p>相比于传统的基于图的聚类方法，传统的聚类方法由于解没有清晰的聚类结构，所以这些方法的解不能直接用来表示聚类结果，而需要使用进一步的K-Means等方法得到聚类结果，但K-Means本身具有的缺陷会导致聚类结果的偏差。</p>
-<h2 id="6-Adaptive-neighboring-graph-for-L1-norm-based-graph-clustering"><a href="#6-Adaptive-neighboring-graph-for-L1-norm-based-graph-clustering" class="headerlink" title="6. Adaptive neighboring graph for L1-norm based graph clustering"></a>6. Adaptive neighboring graph for L1-norm based graph clustering</h2><h3 id="总框架"><a href="#总框架" class="headerlink" title="总框架"></a>总框架</h3><p>优化：（1）<br>$$<br>\begin{align}<br>&amp; \min\limits_{\bf{S},\bf{F}}\sum\limits_{i=1}^n\sum\limits_{j=1}^n(||\bf{x}_i-\bf{x}_j||<em>2^2+\gamma s</em>{ij}^2)+2\lambda \sum\limits_{i=1}^n\sum\limits_{j=1}^n s_{ij}||\bf{f}^i-\bf{f}^j||<em>2 \<br>&amp; s.t.\,s</em>{ij}\ge 0,\sum\limits_{j=1}^ns_{ij}=1,\bf{F}\in \mathbb{R}^{n\times c},\bf{F}^T\bf{DF}=\bf{I_c}.<br>\end{align}<br>$$</p>
-<h4 id="固定F，更新S"><a href="#固定F，更新S" class="headerlink" title="固定F，更新S"></a>固定F，更新S</h4><p>（1）变为（2）<br>$$<br>\begin{align}<br>&amp; \min\limits_{s_i}\sum\limits_{i=1}^n\sum\limits_{j=1}^n(||\bf{x}_i-\bf{x}_j||<em>2^2+\gamma s</em>{ij}^2+\lambda s_{ij}||\bf{f}^i-\bf{f}^j||_2) \<br>&amp; s.t.\,s_i\ge 0,s_i^T\bf{1}=1. \<br>\end{align}<br>$$</p>
+<h2 id="6-Adaptive-neighboring-graph-for-L1-norm-based-graph-clustering"><a href="#6-Adaptive-neighboring-graph-for-L1-norm-based-graph-clustering" class="headerlink" title="6. Adaptive neighboring graph for L1-norm based graph clustering"></a>6. Adaptive neighboring graph for L1-norm based graph clustering</h2><h3 id="总框架"><a href="#总框架" class="headerlink" title="总框架"></a>总框架</h3><p>优化：（1）</p>
+<p>$\min\limits_{\bf{S},\bf{F}}\sum\limits_{i=1}^n\sum\limits_{j=1}^n(||\bf{x}_i-\bf{x}_j||<em>2^2+\gamma s</em>{ij}^2)+2\lambda \sum\limits_{i=1}^n\sum\limits_{j=1}^n s_{ij}||\bf{f}^i-\bf{f}^j||_2$</p>
+<p>$s.t.\,s_{ij}\ge 0,\sum\limits_{j=1}^ns_{ij}=1,\bf{F}\in \mathbb{R}^{n\times c},\bf{F}^T\bf{DF}=\bf{I_c}.$</p>
+<h4 id="固定F，更新S"><a href="#固定F，更新S" class="headerlink" title="固定F，更新S"></a>固定F，更新S</h4><p>（1）变为（2）</p>
+<p>$\min\limits_{s_i}\sum\limits_{i=1}^n\sum\limits_{j=1}^n(||\bf{x}_i-\bf{x}_j||<em>2^2+\gamma s</em>{ij}^2+\lambda s_{ij}||\bf{f}^i-\bf{f}^j||_2)$</p>
+<p>$s.t.\,s_i\ge 0,s_i^T\bf{1}=1.$</p>
 <p>定义$d_{ij}^x=||\bf{x}_i-\bf{x}_j||_2^2$</p>
 <p>$d_{ij}^f=||\bf{f}^i-\bf{f}^j||_2$</p>
-<p>$\bf{d}<em>i\in \mathbb{R}^{n\times 1}\;\text{as a vector with the j-th element as }d</em>{ij}=d{ij}^x+\lambda d_{ij}^f$</p>
+<p>$\bf{d}<em>i\in \mathbb{R}^{n\times 1}$as a vector with the j-th element as $d</em>{ij}=d{ij}^x+\lambda d_{ij}^f$</p>
 <p>（2）变为（3）</p>
 <p>$\min\limits_{s_i\ge 0,s_i^T\bf{1}=1}||\bf{s}_i+\frac{1}{2\lambda}\bf{d}_i||_2^2$</p>
 <p><mark>使用KDD 2014的2.4节方法优化（3）</mark></p>
@@ -546,6 +550,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">羽毛球</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">小米9</a>
               </li>
              
@@ -562,19 +570,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">羽毛球</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">新知</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">聚类</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -587,6 +583,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">聚类</a>
               </li>
              
               <li class="article-tag-list-item">
