@@ -171,6 +171,145 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2019-10-4-实验一：Linux内核编译及添加系统调用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/04/2019-10-4-实验一：Linux内核编译及添加系统调用/">Linux内核编译及添加系统调用</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/04/2019-10-4-实验一：Linux内核编译及添加系统调用/" class="archive-article-date">
+  	<time datetime="2019-10-04T12:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="实验一：Linux内核编译及添加系统调用"><a href="#实验一：Linux内核编译及添加系统调用" class="headerlink" title="实验一：Linux内核编译及添加系统调用"></a>实验一：Linux内核编译及添加系统调用</h1><h2 id="1-实验环境"><a href="#1-实验环境" class="headerlink" title="1. 实验环境"></a>1. 实验环境</h2><blockquote>
+<p>虚拟机：VMware</p>
+<p>Linux版本：Ubuntu 19.04 64位</p>
+<p>下载的Liinux内核版本：4.19.76</p>
+</blockquote>
+<p>** 由于第一次创建的虚拟机容量太小（40G）导致磁盘空间占满后无法进入Ubuntu的登录界面，只好删除虚拟机重新安装了ubuntu，分配了75G的磁盘空间。</p>
+<h2 id="2-实验步骤"><a href="#2-实验步骤" class="headerlink" title="2. 实验步骤"></a>2. 实验步骤</h2><ul>
+<li><p>下载linux内核</p>
+<blockquote>
+<p><a href="https://www.kernel.org/" target="_blank" rel="noopener">https://www.kernel.org/</a></p>
+</blockquote>
+</li>
+<li><p>提升权限</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo su</span><br><span class="line"><span class="string">"Input password of current user"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>移动下载的文件到<code>/usr/src/</code></p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mv linux-4.19.76.tar.xz /usr/src/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压并进入文件夹</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ tar -xvf linux-4.19.76.tar.xz</span><br><span class="line">$ <span class="built_in">cd</span> linux-4.19.76</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装相关依赖包</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get install libncurses5-dev libssl-dev</span><br><span class="line">$ apt-get install build-essential openssl</span><br><span class="line">$ apt-get install zlibc minizip</span><br><span class="line">$ apt-get install libidn11-dev libidn11</span><br><span class="line">$ apt-get install flex bison</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>修改系统调用（该步骤放在“3 修改系统调用”讲述）</strong></p>
+</li>
+<li><p>创建批处理（因为编译容易出错需要重新开始，所以创建一个批处理更方便）</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim auto.sh</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!bin/sh</span></span><br><span class="line">make mrproper</span><br><span class="line">make menuconfig</span><br><span class="line">make -j6 2&gt;error.log</span><br><span class="line">make modules_install</span><br><span class="line">make install</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"All Done."</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sh auto.sh</span><br></pre></td></tr></table></figure>
+<p>  ** make menuconfig中的“general settings”选择了“编译其它Drivers”</p>
+<p>  **”kernel hacker”中的大小限制改为4096, 以避免产生超过大小的warning</p>
+<p>  ** make -6 2&gt;error.log 将错误输出到error.log中，在编译完成后可以查看和排除错误。</p>
+</li>
+<li><p>配置grub引导程序</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/default/grub</span><br><span class="line"></span><br><span class="line">将GRUB_TIMEOUT=0改成GRUB_TIMEOUT=10</span><br><span class="line">将GRUB_CMDLINE_LINUX_DEFAULT=<span class="string">"hidden"</span>改成GRUB_CMDLINE_LINUX_DEFAULT=<span class="string">"text"</span></span><br><span class="line"></span><br><span class="line">$ update-grab</span><br><span class="line">$ reboot</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="3-修改系统调用"><a href="#3-修改系统调用" class="headerlink" title="3 修改系统调用"></a>3 修改系统调用</h2><ul>
+<li><p>修改系统调用表</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ vim ./arch/x86/entry/syscalls/syscall_64.tbl</span><br><span class="line"></span><br><span class="line">在335处添加一行：</span><br><span class="line">335	64	mysetnice	sys_mysetnice</span><br></pre></td></tr></table></figure>
+<p>  ** 此处我一开始把自己的系统调用添加到文件最后，548处去了，导致之后编译显示找不到sys_mysetnice。</p>
+</li>
+<li><p>声明系统调用服务例程</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vim ./include/linux/syscalls.h</span><br><span class="line"></span><br><span class="line"><span class="function">asmlinkage <span class="keyword">long</span> <span class="title">sys_mysetnice</span><span class="params">(<span class="keyword">pid_t</span> pid, <span class="keyword">int</span> flag, <span class="keyword">int</span> nicevalue, <span class="keyword">void</span> __user* prio, <span class="keyword">void</span> __user* nice)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>  ** 这里似乎也要在正确的文件位置内插入，在文件末尾插入会出现问题。</p>
+</li>
+<li><p>实现mysetnice系统调用服务例程</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">$ vim ./kernel/sys.c</span><br><span class="line"></span><br><span class="line">SYSCALL_DEFINE5(sys_mysetnice, <span class="keyword">pid_t</span>, pid, <span class="keyword">int</span>, flag, <span class="keyword">int</span>, nicevalue, <span class="keyword">void</span> __user *, prio, <span class="keyword">void</span> __user *, nice)</span><br><span class="line">&#123;</span><br><span class="line">        <span class="keyword">int</span> cur_prio, cur_nice;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">pid</span> *<span class="title">ppid</span>;</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">pcb</span>;</span></span><br><span class="line"></span><br><span class="line">        ppid = find_get_pid(pid);</span><br><span class="line"></span><br><span class="line">        pcb = pid_task(ppid, PIDTYPE_PID);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (flag == <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">                set_user_nice(pcb, nicevalue);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (flag != <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">                <span class="keyword">return</span> EFAULT;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        cur_prio = task_prio(pcb);</span><br><span class="line">        cur_nice = task_nice(pcb);</span><br><span class="line"></span><br><span class="line">        copy_to_user(prio, &amp;cur_prio, <span class="keyword">sizeof</span>(cur_prio));</span><br><span class="line">        copy_to_user(nice, &amp;cur_nice, <span class="keyword">sizeof</span>(cur_nice));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写小程序测试mysetnice系统调用</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/syscall.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EFAULT 14</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> pid,flag,nicevalue;</span><br><span class="line">        <span class="keyword">int</span> prev_prio, prev_nice, cur_prio, cur_nice;</span><br><span class="line">        <span class="keyword">int</span> result;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Input pid flag nicevalue:\n"</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d %d %d"</span>,&amp;pid, &amp;flag, &amp;nicevalue);</span><br><span class="line"></span><br><span class="line">        result = syscall(<span class="number">335</span> , pid, <span class="number">0</span>, nicevalue, &amp;prev_prio, &amp;prev_nice);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(result == EFAULT)</span><br><span class="line">        &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"ERROR!"</span>);</span><br><span class="line">                <span class="keyword">return</span> EFAULT;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(flag == <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">                syscall(<span class="number">335</span>, pid, <span class="number">1</span>, nicevalue, &amp;cur_prio, &amp;cur_nice);</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"原来的prio是%d, 原来的nice是%d\n"</span>, prev_prio,prev_nice);</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"现在的prio是%d, 现在的nice是%d\n"</span>,cur_prio, cur_nice);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(flag ==<span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"现在的prio是%d, 现在的nice是%d\n"</span>,prev_prio,prev_nice);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="4-小程序运行结果"><a href="#4-小程序运行结果" class="headerlink" title="4 小程序运行结果"></a>4 小程序运行结果</h2><p><img src="file:///C:\Users\Hasee\Documents\Tencent Files\1072112128\Image\C2C\Image3\X]UO_HI6I41Y$$(L" alt="img">}O6$RY.jpg)</p>
+<h2 id="5-问题总结"><a href="#5-问题总结" class="headerlink" title="5 问题总结"></a>5 问题总结</h2><p>本次实验过程中有很多问题导致了我需要不断重新编译内核。</p>
+<ol>
+<li>虚拟机分配给ubuntu的硬盘太小，至少分配70G保证使用。</li>
+<li>刚开始使用了5.3.2版本的内核，但在编译时出现了错误，之后换用4.19.73内核。</li>
+<li>编辑<code>sys.c</code>，<code>syscalls.h</code>，<code>syscalls_64.tbl</code>时需要修改到正确的地方，否则编译会失败。</li>
+<li>由于ubuntu系统的原因，一开始按书上配置的grub没有反应，需要按照网络上专用的方法重新配置。</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/04/2019-10-4-实验一：Linux内核编译及添加系统调用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2019-6-25-创新实践总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -939,103 +1078,10 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-2019-5-3-计算机组成原理-多功能ALU设计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/03/2019-5-3-计算机组成原理-多功能ALU设计/">计算机组成原理-多功能ALU设计</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/03/2019-5-3-计算机组成原理-多功能ALU设计/" class="archive-article-date">
-  	<time datetime="2019-05-03T09:49:01.994Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="实验目的："><a href="#实验目的：" class="headerlink" title="实验目的："></a>实验目的：</h4><ol>
-<li><p>学习多功能ALU的工作原理，掌握运算器的设计方法。</p>
-</li>
-<li><p>掌握运用Verilog HDL语言进行行为描述与建模的技巧和方法。</p>
-</li>
-</ol>
-<h4 id="实验要求："><a href="#实验要求：" class="headerlink" title="实验要求："></a>实验要求：</h4><ol>
-<li>设计一个具有8种运算功能的32位ALU，并能够产生运算结果的标志：结果为零标志ZF，溢出标志OF。</li>
-<li>编写顶层模块，用于验证模块的正确性。</li>
-</ol>
-        
-          <a class="article-more-a" href="/2019/05/03/2019-5-3-计算机组成原理-多功能ALU设计/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机组成原理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">verilog</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">vivado</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">FPGA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/03/2019-5-3-计算机组成原理-多功能ALU设计/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -1142,11 +1188,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">商业模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">创业</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1166,7 +1212,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">羽毛球</a>
+                <a href="javascript:void(0)" class="js-tag color5">商业模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">创业</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1186,19 +1248,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">羽毛球</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">新知</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
