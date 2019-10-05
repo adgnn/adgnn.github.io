@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="https://adgnn.github.io">
   <title>Linux内核编译及添加系统调用 | adgnn&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="实验一：Linux内核编译及添加系统调用1. 实验环境 虚拟机：VMware Linux版本：Ubuntu 19.04 64位 下载的Liinux内核版本：4.19.76  ** 由于第一次创建的虚拟机容量太小（40G）导致磁盘空间占满后无法进入Ubuntu的登录界面，只好删除虚拟机重新安装了ubuntu，分配了75G的磁盘空间。 2. 实验步骤 下载linux内核  https://www.ke">
+  <meta name="description" content="实验一：Linux内核编译及添加系统调用">
 <meta name="keywords" content="操作系统,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux内核编译及添加系统调用">
 <meta property="og:url" content="https://adgnn.github.io/2019/10/04/2019-10-4-实验一：Linux内核编译及添加系统调用/index.html">
 <meta property="og:site_name" content="adgnn&#39;s Blog">
-<meta property="og:description" content="实验一：Linux内核编译及添加系统调用1. 实验环境 虚拟机：VMware Linux版本：Ubuntu 19.04 64位 下载的Liinux内核版本：4.19.76  ** 由于第一次创建的虚拟机容量太小（40G）导致磁盘空间占满后无法进入Ubuntu的登录界面，只好删除虚拟机重新安装了ubuntu，分配了75G的磁盘空间。 2. 实验步骤 下载linux内核  https://www.ke">
+<meta property="og:description" content="实验一：Linux内核编译及添加系统调用">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="file:///C:/Users/Hasee/Documents/Tencent%20Files/1072112128/Image/C2C/Image3/X]UO_HI6I41Y$$(L">
-<meta property="og:updated_time" content="2019-10-04T12:03:53.178Z">
+<meta property="og:updated_time" content="2019-10-05T06:32:58.401Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux内核编译及添加系统调用">
-<meta name="twitter:description" content="实验一：Linux内核编译及添加系统调用1. 实验环境 虚拟机：VMware Linux版本：Ubuntu 19.04 64位 下载的Liinux内核版本：4.19.76  ** 由于第一次创建的虚拟机容量太小（40G）导致磁盘空间占满后无法进入Ubuntu的登录界面，只好删除虚拟机重新安装了ubuntu，分配了75G的磁盘空间。 2. 实验步骤 下载linux内核  https://www.ke">
+<meta name="twitter:description" content="实验一：Linux内核编译及添加系统调用">
 <meta name="twitter:image" content="file:///C:/Users/Hasee/Documents/Tencent%20Files/1072112128/Image/C2C/Image3/X]UO_HI6I41Y$$(L">
   
     <link rel="alternative" href="/atom.xml" title="adgnn&#39;s Blog" type="application/atom+xml">
@@ -193,7 +193,8 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="实验一：Linux内核编译及添加系统调用"><a href="#实验一：Linux内核编译及添加系统调用" class="headerlink" title="实验一：Linux内核编译及添加系统调用"></a>实验一：Linux内核编译及添加系统调用</h1><h2 id="1-实验环境"><a href="#1-实验环境" class="headerlink" title="1. 实验环境"></a>1. 实验环境</h2><blockquote>
+        <h1 id="实验一：Linux内核编译及添加系统调用"><a href="#实验一：Linux内核编译及添加系统调用" class="headerlink" title="实验一：Linux内核编译及添加系统调用"></a>实验一：Linux内核编译及添加系统调用</h1><a id="more"></a>
+<h2 id="1-实验环境"><a href="#1-实验环境" class="headerlink" title="1. 实验环境"></a>1. 实验环境</h2><blockquote>
 <p>虚拟机：VMware</p>
 <p>Linux版本：Ubuntu 19.04 64位</p>
 <p>下载的Liinux内核版本：4.19.76</p>
@@ -445,6 +446,14 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">商业模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">创业</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
               </li>
              
@@ -461,31 +470,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vivado</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">FPGA</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">商业模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">创业</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">vivado</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -506,6 +495,18 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">羽毛球</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
